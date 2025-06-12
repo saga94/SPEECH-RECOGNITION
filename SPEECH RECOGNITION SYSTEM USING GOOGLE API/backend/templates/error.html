@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech To Text Using Google API and Keyboard Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="static/microphone.png">
+    <style>
+        html {
+            display: flex;
+        }
+        .container {
+            position: -webkit-sticky;
+            position: sticky;
+            margin-left: 40px;
+            margin-right: 40px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .container {
+            border: 2px solid black;
+            background: gray;
+            box-shadow: 4px 4px 10px black;
+            -webkit-box-flex: initial;
+        }
+        .bouncing-text {
+            margin-left: 180px;
+            position: relative;
+            display: flex;
+            font-size: 70px;
+            font-family: arial black;
+        }
+        .f {
+            margin-left: 30px;
+        }
+        .a, .b, .c, .d, .e {
+            color: #4cc9f0;
+            text-shadow: 0 3px #4361ee, 0 5px #4361ee, 0 7px #4361ee;
+        }
+        @keyframes bounce {
+            0% {
+                transform: scale(1, 1) translateY(0);
+            }
+            10% {
+                transform: scale(1.1, .9) translateY(0);
+            }
+            30% {
+                transform: scale(.9, 1.1) translateY(-55px);
+            }
+            50% {
+                transform: scale(1.05, .95) translateY(0);
+            }
+            58% {
+                transform: scale(1, 1) translateY(-7px);
+            }
+            65% {
+                transform: scale(1, 1) translateY(0);
+            }
+            100% {
+                transform: scale(1, 1) translateY(0);
+            }
+        }
+        .a {
+            animation: bounce 1s ease infinite;
+        }
+        .b {
+            animation: bounce 1s ease infinite .1s;
+        }
+        .c {
+            animation: bounce 1s ease infinite .2s;
+        }
+        .d {
+            animation: bounce 1s ease infinite .3s;
+        }
+        .e {
+            animation: bounce 1s ease infinite .4s;
+        }
+        body {
+            overflow: auto;
+            position: auto;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
+        body {
+            background: url('static/bgcolor.jpeg');
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        body {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .abstract img, .introduction img {
+            width: 600px; /* Adjust the maximum width to your preferred size */
+            height: 450px; /* Adjust the maximum height to your preferred size */
+            box-shadow: 4px 4px 8px black;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 30px 70px;
+            margin: 5px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            font-size: 25px;
+            position: auto;
+            position: relative;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
+</head>
+<body>
+<center>
+    <header>
+        <div class="container">
+            <div class="bouncing-text">
+                <div class="a">A</div>
+                <div class="b">U</div>
+                <div class="c">D</div>
+                <div class="d">I</div>
+                <div class="e">O</div>
+                <div class="f"></div>
+                <div class="a">T</div>
+                <div class="b">O</div>
+                <div class="f"> </div>
+                <div class="c">T</div>
+                <div class="d">E</div>
+                <div class="e">X</div>
+                <div class="a">T</div>
+                <div class="b"></div>
+                <div class="f"> </div>
+                <div class="c">U</div>
+                <div class="d">S</div>
+                <div class="e">I</div>
+                <div class="a">N</div>
+                <div class="b">G</div>
+                <div class="f"> </div>
+                <div class="c">G</div>
+                <div class="d">O</div>
+                <div class="e">O</div>
+                <div class="a">G</div>
+                <div class="b">L</div>
+                <div class="c">E</div>
+                <div class="f"> </div>
+                <div class="d">A</div>
+                <div class="e">P</div>
+                <div class="a">I</div>
+            </div>
+        </div>
+    </header>
+</center>
+<div class="abstract">
+    <div class="image-container">
+        <img src="static/voice.jpg" alt="Voice Image"/>
+    </div>
+</div>
+<div class="button-container">
+    <form action="{{url_for('speech')}}" method="post">
+        <button class="button" name="button" value="button">
+            <span>Start</span>
+        </button>
+        <button class="button" name="button" value="button">
+            <span>Stop</span>
+        </button>
+        <button class="button" name="button" value="button">
+            <span>Menu</span>
+        </button>
+    </form>
+</div>
+<div class="introduction">
+    <div class="image-container">
+        <img src="static/text.jpg" alt="Text Image"/>
+    </div>
+</div>
+<footer>
+    <center>
+        <p>&copy; Created in 2023</p>
+    </center>
+</footer>
+</body>
+<script type="text/javascript">
+    var $button = document.querySelector('.button');
+    $button.addEventListener('click', function() {
+        var duration = 0.3,delay = 0.05;
+        TweenMax.to($button, duration, {scaleY: 1.2, ease: Expo.easeOut});
+        TweenMax.to($button, duration, {scaleX: 1.2, scaleY: 1, ease: Back.easeOut, easeParams: [3], delay: delay});
+        TweenMax.to($button, duration * 1.25, {scaleX: 1, scaleY: 1, ease: Back.easeOut, easeParams: [6], delay: delay * 3 });
+    });
+</script>
+</html>
