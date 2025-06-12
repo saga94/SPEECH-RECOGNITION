@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  mini-project:
+    image: registry.gitlab.com/docker-shared/images/redhat-apache:9.2.4.59
+    container_name: mini-project
+    tty: true
+    ports: 
+      - "8080:80"
+    networks:
+      - mini-project-network
+    command: bash -c "yum install python3"
+    hostname: mini-project.redhat-apache.com
+    volumes:
+      - ./stage-application.sh:/opt/applications/mini-project/stage-application.sh
+      - ./run-application.sh:/opt/applications/mini-project/run-application.sh
+
+networks:
+  mini-project-network:
+    name: mini-project-network
+    driver: bridge
